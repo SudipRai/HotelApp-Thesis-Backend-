@@ -6,8 +6,7 @@ const Customer=mongoose.model('Customer',{
     },
     password:{
         type:String,
-        required:true,
-       minlegth:8
+        required:true
     },
     roomno:{
         type:String,

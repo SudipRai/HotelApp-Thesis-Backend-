@@ -8,12 +8,11 @@ const app=express();
 const path = require("path");
 const bcryptjs=require('bcryptjs')
 const Customer=require('../models/customerInfo')
-const Otp=require('../models/otp')
 const jwt=require('jsonwebtoken');
 
 
 //-----Register the customer-------//
-router.post("/register",auth.verifyAdmin,[
+router.post("/register",auth.verifyUser,[
     check('fullname',"Username is required").not().isEmpty(),
     check('password',"Password is required").not().isEmpty(),
     check('roomno',"Room No is required").not().isEmpty()   

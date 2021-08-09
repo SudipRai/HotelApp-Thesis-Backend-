@@ -3,7 +3,6 @@ const path = require("path");
 const dotenv = require("dotenv")
 const fileupload = require("express-fileupload");
 const cors=require("cors")
-const cookieparser=require("cookie-parser")
 
 
 dotenv.config({
@@ -26,17 +25,7 @@ app.use(cors({origin: "http://localhost:3000",
 credentials: true}))
 app.use(express.json());
 app.use(express.urlencoded({limit: '50mb',urlencoded:true}))
-app.use(cookieparser())
 
-app.use(function(req, res, next) {
-    res.header('Content-Type', 'application/json;charset=UTF-8')
-    res.header('Access-Control-Allow-Credentials', true)
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    )
-    next()
-  })
 //File upload
 app.use(fileupload());
 // Set static folder

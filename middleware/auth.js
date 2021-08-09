@@ -6,7 +6,7 @@ module.exports.verifyUser=function(req,res,next){
     try{
     const token=req.headers.authorization.split(" ")[1]
     const data=jwt.verify(token,'anysecretkey')
-    Customer.findOne({_id:data.userid}).then(function(userData){
+    Admin.findOne({_id:data.userid}).then(function(userData){
         req.data=userData
         next()
     }).catch(function(ee){
