@@ -51,8 +51,7 @@ router.post("/adminLogin",function(req,res){
                 return res.status(401).json({message:"Invalid"})
             }
             const token=jwt.sign({userid:data._id},'anysecretkey')
-            res.cookie("adminToken",token,{maxAge:new Date().getTime()+300*1000,httpOnly:true})
-            return res.status(200).json({message:"success",user:data._id})
+            return res.status(200).json({message:"success",token:token,user:data._id})
         })
     })
     .catch(function(e){
@@ -62,25 +61,14 @@ router.post("/adminLogin",function(req,res){
 //-------------------------------------------------------------------//
 
 
-//-------------------------------------Get all users--------------------------------//
-router.get("/users",auth.verifyAdmin, asyncHandler(async (req, res, next) => {
-    const users = await Customer.find({});
-    res.status(201).json({
-      message: "success",
-      data: users,
-    });
-  }));
-
-//----------------------------------------------------------------------------------//
-
 
 //---------------------------------------Admin Logout-----------------------------//
-  router.get('/adminLogout',asyncHandler(async (req, res, next) => {
-    res.cookie("adminToken", "none",{maxAge:new Date().getTime()+300*1000,httpOnly:true})   
-     res.status(200).json({
-       success: true,
-       data: "User Logged out",
-     });
-   }));
+//   router.get('/adminLogout',asyncHandler(async (req, res, next) => {
+//     res.cookie("adminToken", "none",{maxAge:new Date().getTime()+300*1000,httpOnly:true})   
+//      res.status(200).json({
+//        success: true,
+//        data: "User Logged out",
+//      });
+//    }));
 //-------------------------------------------------------------------------------------//
 module.exports=router;
