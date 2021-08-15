@@ -52,14 +52,14 @@ router.post('/userLogin',function(req,res){
     Customer.findOne({roomno:roomno})
     .then(function(data){
         if(data===null){
-            return res.status(401).json({message:"Invalid Credentials"})
+            return res.status(201).json({message:"Invalid Credentials"})
         }
         bcryptjs.compare(password,data.password,function(err,result){
             if(result===false){
-                return res.status(401).json({message:"Invalid credentials"})
+                return res.status(201).json({message:"Invalid credentials"})
             }
             const token=jwt.sign({userid:data._id},'anysecretkey')
-            return res.status(200).json({message:"success",token:token,user:data})
+            return res.status(200).json({message:"success",token:token,user:data._id})
         })
     })
     .catch(function(e){

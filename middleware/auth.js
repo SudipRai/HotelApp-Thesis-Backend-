@@ -17,4 +17,19 @@ module.exports.verifyUser=function(req,res,next){
     res.status(401).json({error:e})
     }
 }
+module.exports.verifyAdmin=function(req,res,next){
+    try{
+    const token=req.cookies.adminToken
+    const data=jwt.verify(token,'anysecretkey')
+    Admin.findOne({_id:data.userid}).then(function(userData){
+        req.data=userData
+        next()
+    }).catch(function(ee){
+        res.status(401).json({error:ee})
+    })  
+    }
+    catch(e){
+    res.status(401).json({error:e})
+    }
+}
 

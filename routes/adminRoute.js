@@ -60,6 +60,21 @@ router.post("/adminLogin",function(req,res){
 })
 //-------------------------------------------------------------------//
 
+//-------------------------------------Get all users--------------------------------//
+router.get("/users",auth.verifyUser, asyncHandler(async (req, res, next) => {
+    const users = await Customer.find({});
+    if(users===null){
+        return res.status(200).json({message:"No ACtive Users"})
+    }
+    res.status(201).json({
+      message: "success",
+      data: users,
+    });
+  }));
+
+//----------------------------------------------------------------------------------//
+
+
 
 
 //---------------------------------------Admin Logout-----------------------------//
