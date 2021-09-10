@@ -14,6 +14,10 @@ const connectDB=require('./database/db')
 // Load routes files
 const customerInfoRoute=require('./routes/customerInfoRoute');
 const adminRoute=require('./routes/adminRoute');
+const service=require('./routes/ServiceRoute');
+const message=require('./routes/messageroute');
+const feedback=require('./routes/feedback');
+const food=require('./routes/foodroute');
 
 
 const app=express();
@@ -34,6 +38,10 @@ app.use(express.static(path.join(__dirname, "public")));
 // Mount routes
 app.use(customerInfoRoute)
 app.use(adminRoute)
+app.use(service)
+app.use(message)
+app.use(feedback)
+app.use(food)
 
 
 
