@@ -18,6 +18,7 @@ const service=require('./routes/ServiceRoute');
 const message=require('./routes/messageroute');
 const feedback=require('./routes/feedback');
 const food=require('./routes/foodroute');
+const checkout=require('./routes/checkoutroute');
 
 
 const app=express();
@@ -42,6 +43,7 @@ app.use(service)
 app.use(message)
 app.use(feedback)
 app.use(food)
+app.use(checkout)
 
 
 

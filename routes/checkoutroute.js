@@ -7,18 +7,19 @@ const auth=require('../middleware/auth')
 const app=express();
 const path = require("path");
 const bcryptjs=require('bcryptjs')
-const Food=require('../models/foodmodel')
+const Checkout=require('../models/checkout')
 const jwt=require('jsonwebtoken');
 
-router.post('/add/food',auth.verifyUser,  function (req, res) {
+router.post('/checkout',auth.verifyUser,  function (req, res) {
     const errors = validationResult(req);
     console.log("requested")
     if (errors.isEmpty()) {
         const roomno = req.body.roomno;
-        const foodname = req.body.foodname;
-        const number = req.body.number;
+        const food = req.body.food;
+        const roomcharge = req.body.roomcharge;
+        const servicecharge = req.body.servicecharge;
         const total = req.body.total;
-            const store = new Food({ roomno: roomno, foodname: foodname,number:number,total:total});
+            const store = new Checkout({ roomno: roomno, food: food,roomcharge:roomcharge,servicecharge:servicecharge, total:total});
             store.save().then(function (result) {
                 console.log(result)
                 res.status(200).json({ success: true, message: "success",data:result }) 
@@ -31,27 +32,19 @@ router.post('/add/food',auth.verifyUser,  function (req, res) {
     }
 })
 
-router.get("/food",auth.verifyUser, asyncHandler(async (req, res, next) => {
-    const food = await Food.find({});
-    if(food===null){
+router.get("/checkout",auth.verifyUser, asyncHandler(async (req, res, next) => {
+    const checkout = await Checkout.find({});
+    if(checkout===null){
         return res.status(200).json({message:"No message found"})
     }
     res.status(201).json({
       message: "success",
-      data: food,
+      data: checkout,
     });
   }));
 
 
-  router.get("/myfood/:id", asyncHandler(async(req,res,next)=>{
-    const id=req.params.id
 
-    const food =  await Food.find({roomno:id })
-    res.status(200).json({
-      message: "success",
-      data: food,
-    });
-  }))
 
 module.exports = router;
 
